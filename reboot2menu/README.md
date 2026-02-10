@@ -42,7 +42,6 @@ The script is already executable and placed in `/usr/local/bin`.
 Manual install:
 
 ```bash
-git clone https://github.com/amark2005/reboot2menu.git
 cd reboot2menu
 sudo cp reboot2bios.sh /usr/local/bin/reboot2menu
 sudo chmod +x /usr/local/bin/reboot2menu
