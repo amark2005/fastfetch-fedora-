@@ -38,25 +38,25 @@ starship_config(){
     echo "Starship setup complete"
     sleep 0.5
 }
-power_config(){
-    echo "Configuring power"
-    sleep 0.6
-    sudo pacman -S --noconfirm --needed tlp tlp-rdw
+# power_config(){
+#     echo "Configuring power"
+#     sleep 0.6
+#     sudo pacman -S --noconfirm --needed tlp tlp-rdw
 
-    sudo systemctl stop power-profiles-daemon.service
-    sudo systemctl disable power-profiles-daemon.service
-    sudo pacman -Rns --noconfirm power-profiles-daemon
-    sudo systemctl enable tlp.service
-    sudo systemctl start tlp.service
-    sudo systemctl enable tlp-sleep.service
-    sudo systemctl mask systemd-rfkill.service
-    sudo systemctl mask systemd-rfkill.socket
-    sudo tlp-stat -s
-    sudo tlp start
-    echo
-    echo "Power Setup Completed"
-    sleep 0.5
-}
+#     sudo systemctl stop power-profiles-daemon.service
+#     sudo systemctl disable power-profiles-daemon.service
+#     sudo pacman -Rns --noconfirm power-profiles-daemon
+#     sudo systemctl enable tlp.service
+#     sudo systemctl start tlp.service
+#     sudo systemctl enable tlp-sleep.service
+#     sudo systemctl mask systemd-rfkill.service
+#     sudo systemctl mask systemd-rfkill.socket
+#     sudo tlp-stat -s
+#     sudo tlp start
+#     echo
+#     echo "Power Setup Completed"
+#     sleep 0.5
+# }
 rebootmenu(){
     echo "installing reboot2menu"
     sudo cp reboot2menu/reboot2bios.sh /usr/local/bin/reboot2menu.sh
@@ -64,13 +64,23 @@ rebootmenu(){
     echo "Install completed"
     sleep 0.5
 }
+vscode(){
+    echo "configuring vscode"
+    code --version
+    xargs -n 1 code --install-extension < vscode/vscodeext.txt
+    cp vscode/settings.json $HOME/.config/'Code - OSS'/User/settings.json
+    echo "Config Done"
+    sleep 0.5
+}
 
 Main(){
-    #Install_app
-    #Zsh_install
-    #starship_config
+    Install_app
+    Zsh_install
+    starship_config
     #power_config
     rebootmenu
+    vscode
+
     echo "Setup Completed"
     echo "Restarting ZSH"
     sleep 1.0
