@@ -10,7 +10,7 @@ sleep 0.5
 
 Install_app(){
     # Define a list of packages to install
-    local packages="vscode git gh trash-cli zsh btop ghostty curl wget"
+    local packages="vscode git gh zsh btop ghostty curl wget"
 
     # Detect the package manager and install packages
     if command -v pacman >/dev/null 2>&1;then
@@ -64,7 +64,6 @@ power_config(){
      echo "Configuring power"
      sleep 0.6
      sudo pacman -S --noconfirm --needed tlp tlp-rdw
-
      sudo systemctl stop power-profiles-daemon.service
      sudo systemctl disable power-profiles-daemon.service
      sudo pacman -Rns --noconfirm power-profiles-daemon
