@@ -1,49 +1,73 @@
 {
-  // --- Core ---
-  "files.autoSave": "afterDelay",
-  "editor.fontFamily": "'JetBrains Mono', monospace",
+  "workbench.iconTheme": "material-icon-theme",
+  // Keeping your JetBrains Mono, but applying the video's spacing
+  "editor.fontFamily": "'JetBrains Mono', monospace", 
   "editor.fontLigatures": true,
   "editor.fontSize": 14,
-  "editor.lineHeight": 1.65,
-  "terminal.integrated.defaultProfile.osx": "zsh",
+  "editor.lineHeight": 2.5, // Video uses massive line height for "breathing room"
 
-  // --- Cursor (buttery smooth) ---
-  "editor.cursorBlinking": "phase",
-  "editor.cursorSmoothCaretAnimation": "on",
-  "editor.cursorWidth": 2,
-
-  // --- UI Minimalism ---
+  // --- Extreme Minimalism (Hiding UI) ---
+  "workbench.activityBar.location": "hidden",   // Hides the big left icon bar
+  "workbench.statusBar.visible": false,         // Hides the bottom bar
+  "workbench.editor.showTabs": "none",          // Hides file tabs (Use Cmd/Ctrl+P to switch files)
   "editor.minimap.enabled": false,
+  "breadcrumbs.enabled": false,                 // Hides path at top
+  "workbench.sideBar.location": "right",        // Sidebar moves to right
   "editor.scrollbar.vertical": "hidden",
   "editor.scrollbar.horizontal": "hidden",
-  "window.menuBarVisibility": "compact",
+  "editor.overviewRulerBorder": false,
+  "editor.hideCursorInOverviewRuler": true,
+  "window.menuBarVisibility": "toggle",         // Hides top menu bar (press Alt to show)
 
-  // --- Theme & Icons ---
-  "workbench.colorTheme": "Dobri Next -A00- Black",
-  "workbench.iconTheme": "dobri-simple-icons",
+  // --- Visual Noise Reduction ---
+  "editor.renderLineHighlight": "none",         // No highlight on current line
+  "editor.occurrencesHighlight": "off",         // Don't highlight matching words
+  "editor.selectionHighlight": false,
+  "editor.matchBrackets": "never",
+  "editor.guides.indentation": false,           // Hides indentation lines
+  "editor.folding": false,                      // Hides folding arrows in gutter
+  "scm.diffDecorations": "none",                // Hides Git color bars in gutter
 
-  // --- Git ---
+  // --- Cursor (Video Style) ---
+  "editor.cursorBlinking": "solid",             // No flashing
+  "editor.cursorStyle": "block",                // Block cursor
+  "editor.cursorSmoothCaretAnimation": "on",    // Keeping your smooth preference
+
+  // --- Typography & Layout ---
+  "editor.lineNumbers": "relative",             // Video uses relative numbers (great for Vim/Keyboard nav)
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "explorer.compactFolders": false,             // Standard folder tree view
+
+  // ==========================================
+  // ⚙️ YOUR FUNCTIONAL CORE (Preserved)
+  // ==========================================
+
+  // --- Linux & Terminal ---
+  "terminal.external.linuxExec": "ghostty",
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "terminal.integrated.profiles.linux": {
+    "bash": { "path": "bash", "icon": "terminal-bash" },
+    "zsh": { "path": "/usr/bin/zsh" },
+    "fish": { "path": "fish" },
+    "tmux": { "path": "tmux", "icon": "terminal-tmux" },
+    "pwsh": { "path": "pwsh", "icon": "terminal-powershell" }
+  },
+
+  // --- Git & Workflow ---
   "git.enableSmartCommit": true,
   "git.autofetch": true,
   "git.confirmSync": false,
-
-  // --- Focus Mode ---
+  "gitlens.ai.model": "gemini:gemini-3-pro-preview",
   "zenMode.centerLayout": true,
-  "zenMode.hideStatusBar": false,
+  "zenMode.hideStatusBar": false, // We hid it globally anyway
+  "explorer.confirmDelete": false,
+  "workbench.startupEditor": "none",
 
-  // --- Profiles ---
-  "workbench.settings.applyToAllProfiles": [
-    "editor.fontFamily",
-    "editor.fontLigatures"
-  ],
-  "workbench.secondarySideBar.defaultVisibility": "hidden",
-  "zenMode.showTabs": "single",
-  "vsicons.dontShowNewVersionMessage": true,
-  "chat.viewSessions.enabled": false,
-  "chat.viewWelcome.enabled": false,
-  "editor.wordWrap": "on",
-
-  // --- Markdown Specific ---
+  // --- Language Specifics ---
+  "rust-analyzer.enable": false,
+  "code-runner.runInTerminal": true,
+  
   "[markdown]": {
     "editor.defaultFormatter": "yzhang.markdown-all-in-one",
     "editor.formatOnSave": true,
@@ -57,38 +81,35 @@
     }
   },
   "markdown.extension.toc.updateOnSave": true,
-  "editor.rulers": [
-    80,
-    120
-  ],
-  "explorer.confirmDelete": false,
-  "workbench.startupEditor": "none",
-  "terminal.external.linuxExec": "ghostty",
-  "terminal.integrated.profiles.linux": {
-    "bash": {
-      "path": "bash",
-      "icon": "terminal-bash"
-    },
-    "zsh": {
-      "path": "/usr/bin/zsh"
-    },
-    "fish": {
-      "path": "fish"
-    },
-    "tmux": {
-      "path": "tmux",
-      "icon": "terminal-tmux"
-    },
-    "pwsh": {
-      "path": "pwsh",
-      "icon": "terminal-powershell"
+
+  // ==========================================
+  // 🪄 CUSTOM UI CSS (The Magic)
+  // ==========================================
+  // Requires "Custom UI Style" extension + Restart
+  "custom-ui-style.stylesheet": {
+    // Hide title label for cleaner look
+    ".title-label": "display: none !important;", 
+    
+    // The "Gradient Cursor" from the video
+    ".monaco-editor .cursor": "background: linear-gradient(to bottom, #ff79c6, #bd93f9) !important; color: #282a36 !important;",
+    
+    // Remove shadows for flat aesthetic
+    ".monaco-workbench .part.editor > .content .monaco-editor-background": "box-shadow: none;",
+    ".widget.input": "box-shadow: none !important; border-radius: 6px;",
+    ".quick-input-widget": "box-shadow: none !important; top: 50% !important; transform: translateY(-50%);",
+    
+    // Clean up Sidebar borders
+    ".sidebar": "border-left: none !important;",
+    ".sidebar .title-label": "padding-left: 0 !important;"
+  },
+  
+  // Custom Override to blend Sidebar background
+  "workbench.colorCustomizations": {
+    "[Dracula Spirit Soft]": {
+      "sideBar.background": "#282a36", 
+      "editorSuggestWidget.selectedBackground": "#bd93f9"
     }
   },
-  "terminal.integrated.defaultProfile.linux": "zsh",
-  "rust-analyzer.enable": false,
-  "gitlens.ai.model": "gemini:gemini-3-pro-preview",
-  "code-runner.runInTerminal": true,
-
-
-
+  "files.autoSave": "afterDelay",
+  "editor.autoIndentOnPaste": true
 }
